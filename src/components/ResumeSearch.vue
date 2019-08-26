@@ -1,6 +1,12 @@
 <template>
   <div class="topSearch">
     <div class="search">
+      <span class="logo">
+        <svg class="icon">
+          <use xlink:href="#icon-heart" />
+        </svg>
+        Resumer
+      </span>
       <span>
         <svg class="icon">
           <use xlink:href="#icon-Search" />
@@ -33,7 +39,12 @@
 
 <script>
 export default {
-  name: "ResumeTopbar"
+  name: "ResumeSearch",
+  methods: {
+    preview() {
+      this.$emit("preview");
+    }
+  }
 };
 </script>
 
@@ -49,8 +60,11 @@ export default {
   box-shadow: 8px -4px 67px 14px rgba(250, 252, 254, 1);
   .search {
     height: 80px;
-    padding: 30px 240px;
+    padding: 20px 0;
     position: relative;
+    .logo {
+      font-size: 28px;
+    }
     span {
       font-size: 16px;
       margin-left: 32px;

@@ -1,11 +1,11 @@
 <template>
   <div class="page">
-    <header class="topbar">
-      <ResumeTopbar />
+    <header>
+      <ResumeSearch />
     </header>
     <main>
-      <ResumeLeftNav id="resumeLeftNav" />
-      <ResumePreview id="resumePreview" />
+      <ResumeLeftNav class="leftNav" />
+      <ResumePreview class="preview" />
     </main>
   </div>
 </template>
@@ -14,50 +14,57 @@
 import "normalize.css/normalize.css";
 import "./assets/reset.css";
 
-import ResumeTopbar from "./components/ResumeTopbar";
+import ResumeSearch from "./components/ResumeSearch";
 import ResumeLeftNav from "./components/ResumeLeftNav";
 import ResumePreview from "./components/ResumePreview";
+import icons from "./assets/icons";
 
 export default {
   name: "App",
   components: {
     ResumeLeftNav,
-    ResumeTopbar,
+    ResumeSearch,
     ResumePreview
+  },
+  created() {
+    document.body.insertAdjacentHTML("afterbegin", icons);
   }
 };
 </script>
 
 <style lang="scss">
 .page {
-  height: 100vh;
   display: flex;
+  height: 100vh;
   flex-direction: column;
-}
-.page > mian {
-  flex-grow: 1;
+  header {
+    width: 100%;
+    height: 80px;
+    border: 1px solid red;
+  }
+  main {
+    display: flex;
+    justify-content: space-between;
+    min-width: 1024px;
+    max-width: 1440px;
+    margin: 24px;
+    .leftNav {
+      width: 32%;
+      border: 1px solid green;
+    }
+    .preview {
+      margin-left: 40px;
+      flex-grow: 1;
+      border: 1px solid fuchsia;
+    }
+  }
 }
 
-.page > main {
-  min-width: 1024px;
-  max-width: 1440px;
-  margin: 0;
-  display: flex;
-  justify-content: space-between;
-  padding: 0 16px;
-  width: 100%;
-  align-self: center;
-}
-#resumeLeftNav {
-  width: 40%;
-  background: #444;
-  margin-top: 40px;
-}
-#resumePreview {
-  width: 55.66667%;
-  background: #777;
-  flex-grow: 1;
-  margin-left: 16px;
-  margin-top: 40px;
+svg.icon {
+  height: 1em;
+  width: 1em;
+  fill: currentColor;
+  vertical-align: -0.1em;
+  font-size: 16px;
 }
 </style>

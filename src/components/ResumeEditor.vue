@@ -1,14 +1,13 @@
 <template>
-  <div id="resumeEditor"></div>
+  <div></div>
 </template>
 
 <script>
 export default {
-  name: "ResumeEditor"
-};
+  name: 'ResumeEditor'
+}
 </script>
 
 <style lang="scss">
-#resumeEditor {
-}
+
 </style>
