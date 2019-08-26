@@ -64,9 +64,11 @@ export default {
     position: relative;
     .logo {
       font-size: 28px;
+      .icon {
+        font-size: 28px;
+      }
     }
     span {
-      font-size: 16px;
       margin-left: 32px;
     }
     input {

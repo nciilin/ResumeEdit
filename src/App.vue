@@ -18,9 +18,11 @@ import ResumeSearch from "./components/ResumeSearch";
 import ResumeLeftNav from "./components/ResumeLeftNav";
 import ResumePreview from "./components/ResumePreview";
 import icons from "./assets/icons";
+import store from "./store/index";
 
 export default {
   name: "App",
+  store,
   components: {
     ResumeLeftNav,
     ResumeSearch,
@@ -40,7 +42,6 @@ export default {
   header {
     width: 100%;
     height: 80px;
-    border: 1px solid red;
   }
   main {
     display: flex;
@@ -48,14 +49,13 @@ export default {
     min-width: 1024px;
     max-width: 1440px;
     margin: 24px;
+
     .leftNav {
-      width: 32%;
-      border: 1px solid green;
+      min-width: 32%;
     }
     .preview {
       margin-left: 40px;
       flex-grow: 1;
-      border: 1px solid fuchsia;
     }
   }
 }

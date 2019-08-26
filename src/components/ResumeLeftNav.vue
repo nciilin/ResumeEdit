@@ -17,7 +17,38 @@
     </nav>
     <ol class="panels">
       <li v-for="item in resume.config" v-show="item.field === selected">
-          {{resume[item.field]}}
+        <div v-if="resume[item.field] instanceof Array">
+          <div class="subitem" v-for="(subitem,i) in resume[item.field]">
+            <div class="resumeField" v-for="(value,key) in subitem">
+              <label>{{key}}</label>
+              <input
+                type="text"
+                :value="value"
+                @input="changeResumeField(`${item.field}.${i}.${key}`, $event.target.value)"
+              />
+            </div>
+            <button class="remove">
+              <svg class="icon">
+                <use xlink:href="#icon-Remove" />
+              </svg>
+            </button>
+            <hr />
+            <button class="add">
+              <svg class="icon">
+                <use xlink:href="#icon-add" />
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <div v-else class="resumeField" v-for="(value,key) in resume[item.field]">
+          <label>{{key}}</label>
+          <input
+            type="text"
+            :value="value"
+            @input="changeResumeField(`${item.field}.${key}`, $event.target.value)"
+          />
+        </div>
       </li>
     </ol>
   </div>
@@ -26,30 +57,26 @@
 <script>
 export default {
   name: "ResumeLeftNav",
-  data() {
-    return {
-      selected: "profile",
-      resume: {
-        config: [
-          { field: "information", icon: "information" },
-          { field: "company", icon: "company" },
-          { field: "education", icon: "school" },
-          { field: "projects", icon: "project" },
-          { field: "awards", icon: "award" },
-          { field: "contacts", icon: "contact" }
-        ],
-        information: {
-          name: "",
-          city: "",
-          title: ""
-        },
-        company: [],
-        education: [],
-        projects: [],
-        awards: [],
-        contacts: []
+  computed: {
+    selected: {
+      get() {
+        return this.$store.state.selected;
+      },
+      set(value) {
+        return this.$store.commit("switchTab", value);
       }
-    };
+    },
+    resume() {
+      return this.$store.state.resume;
+    }
+  },
+  methods: {
+    changeResumeField(path, value) {
+      this.$store.commit("updateResume", {
+        path,
+        value
+      });
+    }
   }
 };
 </script>
@@ -89,6 +116,7 @@ export default {
         &.active {
           background: #f6fafd;
           color: #54a19b;
+          border-radius: 5px;
           font-weight: bold;
           .triangle {
             width: 0;
@@ -103,16 +131,63 @@ export default {
           }
         }
       }
-      > .panels {
-        flex-grow: 1;
-        > li {
-          padding: 24px;
+    }
+  }
+  > .panels {
+    flex-grow: 1;
+    > li {
+      padding: 12px;
+      position: relative;
+      .remove {
+        position: absolute;
+        top: 14px;
+        right: 10px;
+        border: none;
+        background: none;
+        .icon {
+          fill: red;
+          width: 24px;
+          height: 24px;
         }
+      }
+      .add {
+        border: none;
+        background: none;
+        .icon {
+          fill: #54a19b;
+          width: 24px;
+          height: 24px;
+        }
+      }
+      .add:hover,
+      .remove:hover {
+        cursor: pointer;
+        transform: scale(1.4);
       }
     }
   }
 }
 ol {
   list-style: none;
+}
+
+.resumeField {
+  > label {
+    display: block;
+  }
+  input[type="text"] {
+    margin: 16px 0;
+    border: 1px solid #ddd;
+    box-shadow: inset 0 1px 3px 0 rgba(0, 0, 0, 0.25);
+    width: 100%;
+    height: 40px;
+    padding: 0 8px;
+  }
+}
+
+hr {
+  border: none;
+  border-top: 1px solid #ddd;
+  margin: 24px 0;
 }
 </style>
