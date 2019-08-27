@@ -7,42 +7,92 @@
         </svg>
         Resumer
       </span>
-      <span>
+
+      <span class="searchIcon">
         <svg class="icon">
           <use xlink:href="#icon-Search" />
         </svg>
+        <input type="text" placeholder="search" />
       </span>
-      <input type="text" placeholder="search" />
-      <button class="registered">
-        <svg class="icon">
-          <use xlink:href="#icon-zhuce" />
-        </svg>注册
-      </button>
-      <button class="login">
-        <svg class="icon">
-          <use xlink:href="#icon-denglu" />
-        </svg>登陆
-      </button>
-      <button class="save">
+
+      <div v-if="logined" class="userActions">
+        <span class="welcome">你好，{{user.username}}</span>
+        <a class="button" href="#" @click.prevent="signOut">登出</a>
+      </div>
+      <div v-else class="userActions">
+        <a class="button registered" href="#" @click.prevent="signUpDialogVisible = true">
+          <svg class="icon">
+            <use xlink:href="#icon-zhuce" />
+          </svg>注册
+        </a>
+
+        <a class="button login" href="#" @click.prevent="signInDialogVisible = true">
+          <svg class="icon">
+            <use xlink:href="#icon-denglu" />
+          </svg>登录
+        </a>
+      </div>
+
+      <a class="button save">
         <svg class="icon">
           <use xlink:href="#icon-Save" />
         </svg>保存
-      </button>
-      <button class="preview" v-on:click="preview">
+      </a>
+      <a class="button preview" v-on:click="preview">
         <svg class="icon">
           <use xlink:href="#icon-plus-preview" />
         </svg>预览
-      </button>
+      </a>
     </div>
+
+    <MyDialog title="注册" :visible="signUpDialogVisible" @close="signUpDialogVisible = false">
+      <SignUpForm @success="signIn($event)" />
+    </MyDialog>
+    <MyDialog title="登录" :visible="signInDialogVisible" @close="signInDialogVisible = false">
+      <SignInForm @success="signIn($event)" />
+    </MyDialog>
   </div>
 </template>
 
 <script>
+import MyDialog from "./MyDialog";
+import SignUpForm from "./SignUpForm";
+import SignInForm from "./SignInForm";
+import AV from "../lib/leancloud";
+
 export default {
   name: "ResumeSearch",
+  data() {
+    return {
+      signUpDialogVisible: false,
+      signInDialogVisible: false
+    };
+  },
+  components: {
+    MyDialog,
+    SignUpForm,
+    SignInForm
+  },
+  computed: {
+    user() {
+      return this.$store.state.user;
+    },
+    logined() {
+      return this.user.id;
+    }
+  },
   methods: {
     preview() {
       this.$emit("preview");
+    },
+    signOut() {
+      AV.User.logOut();
+      this.$store.commit("removeUser");
+    },
+    signIn(user) {
+      this.signUpDialogVisible = false;
+      this.signInDialogVisible = false;
+      this.$store.commit("setUser", user);
     }
   }
 };
@@ -61,7 +111,17 @@ export default {
   .search {
     height: 80px;
     padding: 20px 0;
-    position: relative;
+    display: flex;
+    .searchIcon {
+      padding: 6px 0;
+      margin-left: 56px;
+    }
+    .userActions {
+      margin-right: 3em;
+      .welcome {
+        margin-right: 0.5em;
+      }
+    }
     .logo {
       font-size: 28px;
       .icon {
@@ -76,15 +136,17 @@ export default {
       border: 0px;
       outline: none;
     }
-    button {
+    .button {
       width: 84px;
       height: 35px;
       border-radius: 5px;
       border: 1px solid #416aa6;
       color: #416aa6;
-      text-align: center;
-      background: none;
-      position: relative;
+      text-decoration: none;
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      vertical-align: middle;
       svg {
         font-size: 20px;
         fill: #416aa6;
@@ -93,7 +155,7 @@ export default {
         left: 0;
       }
     }
-    button:hover {
+    a:hover {
       background: #416aa6;
       color: #fff;
       cursor: pointer;
