@@ -1,72 +1,115 @@
 <template>
   <div class="ResumePreview">
-    <div class="ContentShow">
+    <div class="ContentHeader">
       <p class="ContentTitle clearfix">
         Renter Resumer, 8SK4R5
         <span class="ContentAngle">angle</span>
       </p>
     </div>
-    <section data-name="information" v-show="resume.information">
-      <h1>{{resume.information.name}}</h1>
-      <h2>{{resume.information.title}}</h2>
-      <p>
-        <small>{{resume.information.city}}</small>
-        <small>{{resume.information.birth}}</small>
-      </p>
-    </section>
-
-    <section data-name="workHistory" v-show="resume.workHistory">
-      <h2>工作经历</h2>
-      <ol>
-        <li v-for="item in resume.workHistory">
-          <h3>{{item.company}}</h3>
-          <p v-show="item.content">{{item.content}}</p>
+    <div class="ContentShow">
+      <section class="ContentEdit" data-name="information" v-show="resume.information">
+        <h1>{{resume.information.name}}</h1>
+        <h1>{{resume.information.title}}</h1>
+        <p>
+          <small>{{resume.information.city}}</small>
+          <small>{{resume.information.birth}}</small>
+        </p>
+      </section>
+    </div>
+    <div class="StickyNotes">
+      <ul>
+        <li>
+          INFORMATION
+          <svg class="icon">
+            <use xlink:href="#icon-dagou" />
+          </svg>
         </li>
-      </ol>
-    </section>
-
-    <section data-name="education" v-show="resume.education">
-      <h2>毕业院校</h2>
-      <ol>
-        <li v-for="item in resume.education">
-          <h3>
-            {{item.school}}
-            <span v-show="item.degree">- {{item.degree}}</span>
-            <span v-show="item.content">- {{item.content}}</span>
-          </h3>
+        <li>
+          COMPANY
+          <svg class="icon">
+            <use xlink:href="#icon-dagou" />
+          </svg>
         </li>
-      </ol>
-    </section>
-
-    <section data-name="projects" v-show="resume.projects">
-      <h2>项目经历</h2>
-      <ol>
-        <li v-for="item in resume.projects">
-          <h3>{{item.name}}</h3>
-          <p v-show="item.content">{{item.content}}</p>
+        <li>
+          SCHOOL
+          <svg class="icon">
+            <use xlink:href="#icon-dagou" />
+          </svg>
         </li>
-      </ol>
-    </section>
-
-    <section data-name="awards" v-show="resume.awards">
-      <h2>获奖情况</h2>
-      <ol>
-        <li v-for="item in resume.awards">
-          <h3>{{item.name}}</h3>
-          <p v-show="item.content">{{item.content}}</p>
+        <li>
+          PROJECT
+          <svg class="icon">
+            <use xlink:href="#icon-dagou" />
+          </svg>
         </li>
-      </ol>
-    </section>
+        <li>
+          AWARD
+          <svg class="icon">
+            <use xlink:href="#icon-dagou" />
+          </svg>
+        </li>
+        <li>
+          CONTACT
+          <svg class="icon">
+            <use xlink:href="#icon-dagou" />
+          </svg>
+        </li>
+      </ul>
+    </div>
+    <div class="Contentdetail">
+      <section data-name="workHistory" v-show="resume.workHistory">
+        <h2>工作经历</h2>
+        <ol>
+          <li v-for="item in resume.workHistory">
+            <h3>{{item.company}}</h3>
+            <p v-show="item.content">{{item.content}}</p>
+          </li>
+        </ol>
+      </section>
 
-    <section data-name="contacts" v-show="resume.contacts">
-      <h2>联系方式</h2>
-      <table>
-        <tr v-for="item in resume.contacts">
-          <td>{{item.phone}}</td>
-          <td v-show="item.email">{{item.email}}</td>
-        </tr>
-      </table>
-    </section>
+      <section data-name="education" v-show="resume.education">
+        <h2>毕业院校</h2>
+        <ol>
+          <li v-for="item in resume.education">
+            <h3>
+              {{item.school}}
+              <span v-show="item.degree">- {{item.degree}}</span>
+              <span v-show="item.duration">- {{item.duration}}</span>
+            </h3>
+          </li>
+        </ol>
+      </section>
+
+      <section data-name="projects" v-show="resume.projects">
+        <h2>项目经历</h2>
+        <ol>
+          <li v-for="item in resume.projects">
+            <h3>{{item.name}}</h3>
+            <p v-show="item.content">{{item.content}}</p>
+          </li>
+        </ol>
+      </section>
+
+      <section data-name="awards" v-show="resume.awards">
+        <h2>获奖情况</h2>
+        <ol>
+          <li v-for="item in resume.awards">
+            <h3>{{item.name}}</h3>
+            <p v-show="item.content">{{item.content}}</p>
+          </li>
+        </ol>
+      </section>
+
+      <section data-name="contacts" v-show="resume.contacts">
+        <h2>联系方式</h2>
+        <table>
+          <tr v-for="item in resume.contacts">
+            <td>{{item.phone}}</td>
+            <td v-show="item.email">{{item.email}}</td>
+          </tr>
+        </table>
+      </section>
+    </div>
 
     <div class="ResumeFooter">
       <p class="Copyright clearfix">
@@ -97,74 +140,77 @@ export default {
   clear: both;
 }
 .ResumePreview {
+  font: 12px/1.5 Tahoma, Helvetica, Arial, "宋体", sans-serif;
   background: white;
   overflow: auto;
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.25);
   padding: 2em;
   color: #333;
   line-height: 1.2;
-  * {
-    box-sizing: border-box;
-    font-variant: normal;
-    font-weight: normal;
-  }
-  ol {
-    list-style: none;
-  }
-  section + section {
-    margin-top: 2em;
-  }
-  p {
-    white-space: pre-line;
-  } // 请问为什么要加这一行
-  section {
-    > h2:first-child {
-      background: #ddd;
-      display: inline-block;
-      padding: 0.2em;
-      margin-bottom: 0.5em;
-    }
-  }
-  section[data-name="information"] {
-    > h1 {
-      margin: 0.1em 0;
-      font-size: 4em;
-    }
-  }
-  section[data-name="workHistory"],
-  section[data-name="projects"],
-  section[data-name="awards"] {
-    li + li {
-      margin-top: 1em;
-    }
-    li {
-      h3 {
-        border-bottom: 1px solid #999;
-        padding-bottom: 0.3em;
-        margin-bottom: 0.3em;
-      }
-    }
-  }
-  section[data-name="education"] {
-    li {
-      line-height: 1.5;
-    }
-  }
-  section[data-name="contacts"] {
-    td:first-child {
-      padding-right: 1em;
-    }
-  }
-  .ContentShow {
+  .ContentHeader {
     height: 100px;
     background: #62becb;
-    padding: 40px 32px;
+    padding: 40px 48px;
     .ContentTitle {
       color: #f4f4e9;
       .ContentAngle {
         float: right;
-        margin-right: 24px;
+        margin-right: 64px;
         font-size: 14px;
+      }
+    }
+  }
+  .ContentShow {
+    section {
+      padding: 24px 48px;
+      h2 {
+        font-size: 36px;
+      }
+      ol {
+        padding: 16px 0;
+        li {
+          list-style: none;
+        }
+      }
+    }
+    .ContentEdit {
+      background: #dedee0;
+      padding: 40px 48px;
+      height: 320px;
+      h1 {
+        font-size: 40px;
+      }
+      p {
+        font-size: 24px;
+        padding: 12px 0;
+        small:nth-child(2) {
+          margin-left: 24px;
+        }
+      }
+    }
+  }
+  .Contentdetail {
+    background: #e4e2e5;
+    section {
+      padding: 24px 48px;
+      h2 {
+        font-size: 36px;
+      }
+      table {
+        padding: 16px 0;
+        tr {
+          font-size: 16px;
+          td:nth-child(2) {
+            padding: 0 14px;
+          }
+        }
+      }
+      ol {
+        list-style: none;
+        li {
+          padding: 16px 0;
+          font-size: 16px;
+        }
       }
     }
   }
@@ -175,8 +221,29 @@ export default {
       font-size: 12px;
       .icon {
         font-size: 18px;
-        margin-top: -16px;
         float: right;
+      }
+    }
+  }
+  .StickyNotes {
+    width: 240px;
+    height: 240px;
+    background: #0b98a8;
+    position: absolute;
+    top: 360px;
+    right: 180px;
+    ul {
+      list-style: none;
+      padding: 40px 0;
+      li {
+        text-align: right;
+        color: #d6e3e6;
+        padding-right: 28px;
+        font-size: 21px;
+        .icon {
+          fill: white;
+          font-size: 21px;
+        }
       }
     }
   }
