@@ -75,7 +75,7 @@ export default {
       this.$store.commit("updateResume", {
         path,
         value
-      });
+      })
     }
   }
 };
