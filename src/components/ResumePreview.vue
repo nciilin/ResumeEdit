@@ -14,51 +14,52 @@
           <small>{{resume.information.city}}</small>
           <small>{{resume.information.birth}}</small>
         </p>
+        <div class="StickyNotes">
+          <ul>
+            <li>
+              INFORMATION
+              <svg class="icon">
+                <use xlink:href="#icon-dagou" />
+              </svg>
+            </li>
+            <li>
+              COMPANY
+              <svg class="icon">
+                <use xlink:href="#icon-dagou" />
+              </svg>
+            </li>
+            <li>
+              SCHOOL
+              <svg class="icon">
+                <use xlink:href="#icon-dagou" />
+              </svg>
+            </li>
+            <li>
+              PROJECT
+              <svg class="icon">
+                <use xlink:href="#icon-dagou" />
+              </svg>
+            </li>
+            <li>
+              AWARD
+              <svg class="icon">
+                <use xlink:href="#icon-dagou" />
+              </svg>
+            </li>
+            <li>
+              CONTACT
+              <svg class="icon">
+                <use xlink:href="#icon-dagou" />
+              </svg>
+            </li>
+          </ul>
+        </div>
       </section>
     </div>
-    <div class="StickyNotes">
-      <ul>
-        <li>
-          INFORMATION
-          <svg class="icon">
-            <use xlink:href="#icon-dagou" />
-          </svg>
-        </li>
-        <li>
-          COMPANY
-          <svg class="icon">
-            <use xlink:href="#icon-dagou" />
-          </svg>
-        </li>
-        <li>
-          SCHOOL
-          <svg class="icon">
-            <use xlink:href="#icon-dagou" />
-          </svg>
-        </li>
-        <li>
-          PROJECT
-          <svg class="icon">
-            <use xlink:href="#icon-dagou" />
-          </svg>
-        </li>
-        <li>
-          AWARD
-          <svg class="icon">
-            <use xlink:href="#icon-dagou" />
-          </svg>
-        </li>
-        <li>
-          CONTACT
-          <svg class="icon">
-            <use xlink:href="#icon-dagou" />
-          </svg>
-        </li>
-      </ul>
-    </div>
+
     <div class="Contentdetail">
       <section data-name="workHistory" v-show="resume.workHistory">
-        <h2>工作经历</h2>
+        <h1>工作经历</h1>
         <ol>
           <li v-for="item in resume.workHistory">
             <h3>{{item.company}}</h3>
@@ -68,7 +69,7 @@
       </section>
 
       <section data-name="education" v-show="resume.education">
-        <h2>毕业院校</h2>
+        <h1>毕业院校</h1>
         <ol>
           <li v-for="item in resume.education">
             <h3>
@@ -81,7 +82,7 @@
       </section>
 
       <section data-name="projects" v-show="resume.projects">
-        <h2>项目经历</h2>
+        <h1>项目经历</h1>
         <ol>
           <li v-for="item in resume.projects">
             <h3>{{item.name}}</h3>
@@ -91,7 +92,7 @@
       </section>
 
       <section data-name="awards" v-show="resume.awards">
-        <h2>获奖情况</h2>
+        <h1>获奖情况</h1>
         <ol>
           <li v-for="item in resume.awards">
             <h3>{{item.name}}</h3>
@@ -101,7 +102,7 @@
       </section>
 
       <section data-name="contacts" v-show="resume.contacts">
-        <h2>联系方式</h2>
+        <h1>联系方式</h1>
         <table>
           <tr v-for="item in resume.contacts">
             <td>{{item.phone}}</td>
@@ -144,7 +145,7 @@ export default {
   background: white;
   overflow: auto;
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.25);
-  padding: 2em;
+  padding: 1em;
   color: #333;
   line-height: 1.2;
   .ContentHeader {
@@ -163,7 +164,7 @@ export default {
   .ContentShow {
     section {
       padding: 24px 48px;
-      h2 {
+      h1 {
         font-size: 36px;
       }
       ol {
@@ -172,11 +173,34 @@ export default {
           list-style: none;
         }
       }
+      .StickyNotes {
+        width: 240px;
+        height: 240px;
+        background: #0b98a8;
+        position: absolute;
+        top: 160px;
+        right: 120px;
+        ul {
+          list-style: none;
+          padding: 40px 0;
+          li {
+            text-align: right;
+            color: #d6e3e6;
+            padding-right: 28px;
+            font-size: 21px;
+            .icon {
+              fill: white;
+              font-size: 21px;
+            }
+          }
+        }
+      }
     }
     .ContentEdit {
       background: #dedee0;
       padding: 40px 48px;
       height: 320px;
+      position: relative;
       h1 {
         font-size: 40px;
       }
@@ -187,13 +211,14 @@ export default {
           margin-left: 24px;
         }
       }
+      
     }
   }
   .Contentdetail {
     background: #e4e2e5;
     section {
       padding: 24px 48px;
-      h2 {
+      h1 {
         font-size: 36px;
       }
       table {
@@ -222,28 +247,6 @@ export default {
       .icon {
         font-size: 18px;
         float: right;
-      }
-    }
-  }
-  .StickyNotes {
-    width: 240px;
-    height: 240px;
-    background: #0b98a8;
-    position: absolute;
-    top: 360px;
-    right: 180px;
-    ul {
-      list-style: none;
-      padding: 40px 0;
-      li {
-        text-align: right;
-        color: #d6e3e6;
-        padding-right: 28px;
-        font-size: 21px;
-        .icon {
-          fill: white;
-          font-size: 21px;
-        }
       }
     }
   }

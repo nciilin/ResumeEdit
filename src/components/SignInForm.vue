@@ -65,6 +65,11 @@ export default {
   input {
     border: none;
     border: 1px solid #416aa6;
+    width: 100%;
+    padding: 6px;
+    background: #0084FF;
+    border-radius: 5px;
+    color: #fff;
   }
 }
 </style>

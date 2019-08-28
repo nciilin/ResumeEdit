@@ -1,11 +1,9 @@
 <template>
-  <div class="page">
-    <header>
-      <ResumeSearch />
-    </header>
+  <div class="page" v-bind:class="{previewMode: previewMode}">
+    <ResumeSearch id="topbar" v-on:preview="preview" />
     <main>
-      <ResumeLeftNav class="leftNav" />
-      <ResumePreview class="preview" />
+      <ResumeLeftNav id="ResumeLeftNav" class="leftNav" />
+      <ResumePreview id="ResumePreview" class="preview" />
     </main>
   </div>
 </template>
@@ -25,6 +23,11 @@ import getAVUser from "./lib/getAVUser";
 export default {
   name: "App",
   store,
+  data() {
+    return {
+      previewMode: false
+    };
+  },
   components: {
     ResumeLeftNav,
     ResumeSearch,
@@ -38,6 +41,11 @@ export default {
     }
     this.$store.commit("initState", state);
     this.$store.commit("setUser", getAVUser());
+  },
+  methods: {
+    preview() {
+      this.previewMode = true;
+    }
   }
 };
 </script>
@@ -47,7 +55,8 @@ export default {
   display: flex;
   height: 100vh;
   flex-direction: column;
-  header {
+  .ResumeSearch {
+    display: block;
     width: 100%;
     height: 80px;
   }
@@ -57,7 +66,6 @@ export default {
     min-width: 1024px;
     max-width: 1440px;
     margin: 24px;
-
     .leftNav {
       min-width: 32%;
     }
@@ -66,6 +74,19 @@ export default {
       flex-grow: 1;
     }
   }
+}
+
+.previewMode > #topbar {
+  display: none;
+}
+
+.previewMode #ResumeLeftNav {
+  display: none;
+}
+
+.previewMode #ResumePreview {
+  max-width: 800px;
+  margin: 32px auto;
 }
 
 svg.icon {
