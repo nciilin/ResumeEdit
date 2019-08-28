@@ -82,7 +82,7 @@ export default {
 </script>
 
 <style lang="scss"> 
-  
+
 #ResumeLeftNav {
   background: #fefeff;
   box-shadow: 10px 7px 6px 0px rgba(242, 242, 242, 0.84);

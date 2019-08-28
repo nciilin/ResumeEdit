@@ -5,6 +5,11 @@
       <ResumeLeftNav id="ResumeLeftNav" class="leftNav" />
       <ResumePreview id="ResumePreview" class="preview" />
     </main>
+    <button id="exitPreview" v-on:click="exitPreview">
+      <svg class="icon">
+        <use xlink:href="#icon-Remove" />
+      </svg>退出
+    </button>
   </div>
 </template>
 
@@ -45,6 +50,9 @@ export default {
   methods: {
     preview() {
       this.previewMode = true;
+    },
+    exitPreview() {
+      this.previewMode = false;
     }
   }
 };
@@ -74,6 +82,38 @@ export default {
       flex-grow: 1;
     }
   }
+}
+
+#exitPreview {
+  display: none;
+  width: 84px;
+  height: 35px;
+  border-radius: 5px;
+  color: #416aa6;
+  text-align: center;
+  background: none;
+  position: relative;
+  .icon {
+    font-size: 20px;
+    fill: #416aa6;
+    position: absolute;
+    top: 8px;
+    left: 0;
+  }
+}
+#exitPreview:hover {
+  background: #416aa6;
+  color: #fff;
+  cursor: pointer;
+  svg {
+    fill: #fff;
+  }
+}
+.previewMode #exitPreview {
+  display: block;
+  position: fixed;
+  right: 16px;
+  bottom: 16px;
 }
 
 .previewMode > #topbar {
